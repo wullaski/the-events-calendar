@@ -1984,6 +1984,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				Tribe__Events__Template_Factory::asset_package( 'admin' );
 			}
 
+			// added to allow widget to load properly in siteorigin page builder
+			if ( apply_filters( 'tribe_allow_widget_on_post_page_edit_screen', '__return_false' ) && $admin_helpers->is_screen( array( 'post', 'page' ) ) ) {
+				Tribe__Events__Template_Factory::asset_package( 'tribe-select2' );
+				Tribe__Events__Template_Factory::asset_package( 'events-css' );
+				Tribe__Events__Template_Factory::asset_package( 'admin-ui' );
+				Tribe__Events__Template_Factory::asset_package( 'admin' );
+			}
 			// events, organizer, or venue editing
 			if ( $admin_helpers->is_post_type_screen() ) {
 				// select 2
