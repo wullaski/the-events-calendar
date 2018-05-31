@@ -20,6 +20,7 @@ class Tribe__Events__iCal {
 		add_action( 'template_redirect', array( $this, 'do_ical_template' ) );
 		add_filter( 'tribe_get_ical_link', array( $this, 'day_view_ical_link' ), 20, 1 );
 		add_action( 'wp_head', array( $this, 'set_feed_link' ), 2, 0 );
+		add_filter( 'tribe_ical_feed_item', array( $this, 'ical_feed_item_decode_characters' ) );
 	}
 
 	/**
@@ -549,4 +550,64 @@ class Tribe__Events__iCal {
 		$this->feed_default_export_count = $count;
 	}
 
+	/**
+	 * Alows decoding of special characters
+	 * @param $parts the event item to filter
+	 *
+	 * @since TBD
+	 *
+	 * @return mixed
+	 */
+	public function ical_feed_item_decode_characters( $parts ) {
+		/**
+		 * Filters the list of characters to decode
+		 *
+		 * @param array list of characters to decode in plain => decoded format
+		 */
+		$character_map = apply_filters(
+			'tribe_events_ical_feed_decode_character_list',
+			array(
+				'&' => '%26',
+				';' => '%3B',
+				'"' => '%22'
+			)
+		);
+
+		/**
+		 * Filters the list of fields to decode
+		 *
+		 * @param array list of fields to decode
+		 */
+		$field_map = apply_filters( 'tribe_events_ical_feed_decode_field_list', array( 'ORGANIZER' ) );
+
+		foreach ( $parts as &$single_part ) {
+			foreach( $field_map as $field ) {
+				if ( 0 === strpos( $single_part, $field ) ) {
+					$dont_continue = true;
+				}
+			}
+
+			if ( empty( $dont_continue ) ) {
+				continue;
+			}
+
+			// Extract the common name
+			$cn_begins = strpos( $single_part, 'CN="' ) + 4;
+			$cn_ends = strpos( $single_part, '"', $cn_begins );
+			$cn_len = $cn_ends - $cn_begins;
+
+			// Decode it
+			$encoded_cn = substr( $single_part, $cn_begins, $cn_len );
+			$decoded_cn = rawurldecode( $encoded_cn );
+
+			// Re-encode problem characters (ampersands, semicolons and dbl quotes)
+			foreach ( $character_map as $char => $decoded ) {
+				$decoded_cn = str_replace( $char, $decoded, $decoded_cn );
+			}
+
+			// Write back our changes
+			$single_part = substr_replace( $single_part, $decoded_cn, $cn_begins, $cn_len );
+		}
+		return $parts;
+	}
 }
