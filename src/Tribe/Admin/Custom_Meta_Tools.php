@@ -104,11 +104,11 @@ class Tribe__Events__Admin__Custom_Meta_Tools {
 	}
 
 	protected function update_js() {
-		$path = tribe_events_pro_resource_url( 'events-additional-fields-update.js' );
+		$path = tribe_events_resource_url( 'events-additional-fields-update.js' );
 		$spinner = '<img src="' . esc_url( get_admin_url( null, 'images/spinner.gif' ) ) . '">';
 
-		wp_enqueue_script( 'tribe-events-pro-additional-fields-update', $path, array( 'jquery' ), false, true );
-		wp_localize_script( 'tribe-events-pro-additional-fields-update', 'tribe_additional_fields', array(
+		wp_enqueue_script( 'tribe-events-additional-fields-update', $path, array( 'jquery' ), false, true );
+		wp_localize_script( 'tribe-events-additional-fields-update', 'tribe_additional_fields', array(
 			'update_check'    => wp_create_nonce( 'custom_meta_tools:updater' ),
 			'complete_msg'    => '<strong>' . _x( 'All fields have been updated!', 'additional field update', 'tribe-events-calendar-pro' ) . '</strong>',
 			'failure_msg'     => '<strong>' . _x( 'An unexpected error stopped the update from completing.', 'additional field update', 'tribe-events-calendar-pro' ) . '</strong>',
@@ -206,7 +206,7 @@ class Tribe__Events__Admin__Custom_Meta_Tools {
 			$value = get_post_meta( $event_id, $custom_field[ 'name' ], true );
 
 			// If this is a multichoice field, break it down from a pipe-separated format to an array
-			if ( Tribe__Events__Pro__Custom_Meta::is_multichoice( $custom_field ) ) {
+			if ( Tribe__Events__Custom_Meta::is_multichoice( $custom_field ) ) {
 				$value = explode( '|', $value );
 			}
 
@@ -214,7 +214,7 @@ class Tribe__Events__Admin__Custom_Meta_Tools {
 		}
 
 		// Trigger an update
-		Tribe__Events__Pro__Custom_Meta::save_single_event_meta( $event_id, $fields );
+		Tribe__Events__Custom_Meta::save_single_event_meta( $event_id, $fields );
 	}
 
 	/**
@@ -228,7 +228,7 @@ class Tribe__Events__Admin__Custom_Meta_Tools {
 		$defined_fields     = (array) tribe_get_option( 'custom-fields', array() );
 
 		foreach ( $defined_fields as $custom_field ) {
-			if ( Tribe__Events__Pro__Custom_Meta::is_multichoice( $custom_field[ 'type' ] ) ) {
+			if ( Tribe__Events__Custom_Meta::is_multichoice( $custom_field[ 'type' ] ) ) {
 				$multichoice_fields[] = $custom_field;
 			}
 		}

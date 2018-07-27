@@ -54,6 +54,8 @@ class Tribe__Events__Custom_Meta {
 		// filters to avoid emptying them.
 		add_action( 'tribe_aggregator_before_insert_posts', array( __CLASS__, 'remove_save_single_meta_filter' ) );
 		add_action( 'tribe_aggregator_after_insert_posts', array( __CLASS__, 'add_save_single_meta_filter' ) );
+
+		add_action( 'tribe_events_single_event_meta_primary_section_end', array( __CLASS__, 'additional_fields' ) );
 	}
 
 	/**
@@ -137,6 +139,7 @@ class Tribe__Events__Custom_Meta {
 	 */
 	public static function event_meta_options() {
 		$pro = Tribe__Events__Pro__Main::instance();
+		$core = Tribe__Events__Main::instance();
 
 		// Grab the custom fields and append an extra blank row at the end
 		$custom_fields = tribe_get_option( 'custom-fields' );
@@ -152,7 +155,7 @@ class Tribe__Events__Custom_Meta {
 		// Settings for regular WordPress custom fields
 		$disable_metabox_custom_fields = $pro->displayMetaboxCustomFields() ? 'show' : 'hide';
 
-		include $pro->pluginPath . 'src/admin-views/event-meta-options.php';
+		include $core->pluginPath . 'src/admin-views/event-meta-options.php';
 	}
 
 	/**
@@ -166,7 +169,7 @@ class Tribe__Events__Custom_Meta {
 		$tribe_ecp    = Tribe__Events__Main::instance();
 		$customFields = tribe_get_option( 'custom-fields' );
 
-		$events_event_meta_template = Tribe__Events__Pro__Main::instance()->pluginPath . 'src/admin-views/event-meta.php';
+		$events_event_meta_template = Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/event-meta.php';
 		$events_event_meta_template = apply_filters( 'tribe_events_event_meta_template', $events_event_meta_template );
 		if ( ! empty( $events_event_meta_template ) ) {
 			include( $events_event_meta_template );
@@ -401,6 +404,15 @@ class Tribe__Events__Custom_Meta {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Render additional field data within the single event view meta section.
+	 */
+	public function additional_fields() {
+		tribe_get_template_part( 'modules/meta/additional-fields', null, array(
+			'fields' => tribe_get_custom_fields(),
+		) );
 	}
 
 	/**
