@@ -779,6 +779,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			Tribe__Events__Timezones::init();
 			$this->registerPostType();
 
+			//todo change to service provider
+			Tribe__Events__Custom_Meta::init();
+			$this->custom_meta_tools = new Tribe__Events__Pro__Admin__Custom_Meta_Tools;
+
 			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
 
