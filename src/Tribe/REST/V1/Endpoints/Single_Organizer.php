@@ -129,36 +129,78 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Returns the data of the organizer with the specified post ID', 'the-event-calendar' ),
-						'schema'      => array(
-							'$ref' => '#/definitions/Organizer',
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'$ref' => '#/components/schemas/Organizer',
+								),
+							),
 						),
 					),
 					'400' => array(
 						'description' => __( 'The organizer post ID is missing.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'403' => array(
 						'description' => __( 'The organizer with the specified ID is not accessible.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'404' => array(
 						'description' => __( 'An organizer with the specified event does not exist.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 				),
 			),
 			'post' => array(
-				'consumes' => array( 'application/x-www-form-urlencoded' ),
 				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
 				'responses'  => array(
 					'201' => array(
 						'description' => __( 'Returns the data of the created organizer', 'the-event-calendar' ),
-						'schema'      => array(
-							'$ref' => '#/definitions/Organizer',
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'$ref' => '#/components/schemas/Organizer',
+								),
+							),
 						),
 					),
 					'400' => array(
 						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'403' => array(
 						'description' => __( 'The user is not authorized to create organizers', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 				),
 			),
@@ -167,21 +209,54 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Deletes an organizer and returns its data', 'the-event-calendar' ),
-						'schema'      => array(
-							'$ref' => '#/definitions/Organizer',
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'schema'      => array(
+									),
+								),
+							),
 						),
 					),
 					'400' => array(
 						'description' => __( 'The organizer post ID is missing or does not exist.', 'the-venues-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'403' => array(
 						'description' => __( 'The current user cannot delete the organizer with the specified ID.', 'the-venues-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'410' => array(
 						'description' => __( 'The organizer with the specified ID has been deleted already.', 'the-venues-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'500' => array(
 						'description' => __( 'The organizer with the specified ID could not be deleted.', 'the-venues-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 				),
 			),

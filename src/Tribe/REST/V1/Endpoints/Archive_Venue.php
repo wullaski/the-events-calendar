@@ -51,17 +51,52 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Returns all the venues matching the search criteria', 'the-event-calendar' ),
-						'schema'      => array(
-							'title' => 'venues',
-							'type'  => 'array',
-							'items' => array( '$ref' => '#/definitions/Venue' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type'       => 'object',
+									'properties' => array(
+										'rest_url'    => array(
+											'type'        => 'string',
+											'format'      => 'uri',
+											'description' => __( 'This results page REST URL', 'the-events-calendar' ),
+										),
+										'total'       => array(
+											'type'       => 'integer',
+											'description' => __( 'The total number of results across all pages', 'the-events-calendar' ),
+										),
+										'total_pages' => array(
+											'type'       => 'integer',
+											'description' => __( 'The total number of result pages matching the search criteria', 'the-events-calendar' ),
+										),
+										'venues'   => array(
+											'type'  => 'array',
+											'items' => array( '$ref' => '#/components/schemas/Venue' ),
+										),
+									),
+								),
+							),
 						),
 					),
 					'400' => array(
 						'description' => __( 'One or more of the specified query variables has a bad format', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'404' => array(
 						'description' => __( 'The requested page was not found.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 				),
 			),

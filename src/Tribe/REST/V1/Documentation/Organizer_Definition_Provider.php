@@ -19,78 +19,84 @@ class Tribe__Events__REST__V1__Documentation__Organizer_Definition_Provider
 		$documentation = array(
 			'type'       => 'object',
 			'properties' => array(
-				'id' => array(
-					'type' => 'integer',
+				'id'                => array(
+					'type'        => 'integer',
 					'description' => __( 'The organizer WordPress post ID', 'the-events-calendar' ),
 				),
-				'global_id' => array(
-					'type' => 'string',
+				'global_id'         => array(
+					'type'        => 'string',
 					'description' => __( 'The organizer ID used to globally identify in Event Aggregator', 'the-events-calendar' ),
 				),
 				'global_id_lineage' => array(
-					'type' => 'array',
-					'items' => array( 'type' => 'string' ),
+					'type'        => 'array',
+					'items'       => array( 'type' => 'string' ),
 					'description' => __( 'An Array containing the lineage of where this organizer comes from, this should not change after the organizer is created.', 'the-events-calendar' ),
 				),
-				'author' => array(
-					'type' => 'integer',
+				'author'            => array(
+					'type'        => 'integer',
 					'description' => __( 'The organizer author WordPress post ID', 'the-events-calendar' ),
 				),
-				'date' => array(
-					'type' => 'string',
+				'date'              => array(
+					'type'        => 'string',
+					'format'      => 'date',
 					'description' => __( 'The organizer creation date in the site time zone', 'the-events-calendar' ),
 				),
-				'date_utc' => array(
-					'type' => 'string',
+				'date_utc'          => array(
+					'type'        => 'string',
+					'format'      => 'date',
 					'description' => __( 'The organizer creation date in UTC time', 'the-events-calendar' ),
 				),
-				'modified' => array(
-					'type' => 'string',
+				'modified'          => array(
+					'type'        => 'string',
+					'format'      => 'date',
 					'description' => __( 'The organizer last modification date in the site time zone', 'the-events-calendar' ),
 				),
-				'modified_utc' => array(
-					'type' => 'string',
+				'modified_utc'      => array(
+					'type'        => 'string',
+					'format'      => 'date',
 					'description' => __( 'The organizer last modification date in UTC time', 'the-events-calendar' ),
 				),
-				'status' => array(
-					'type' => 'string',
+				'status'            => array(
+					'type'        => 'string',
 					'description' => __( 'The organizer status', 'the-events-calendar' ),
 				),
-				'url' => array(
-					'type' => 'string',
+				'url'               => array(
+					'type'        => 'string',
 					'description' => __( 'The URL to the organizer page', 'the-events-calendar' ),
 				),
-				'organizer' => array(
-					'type' => 'string',
+				'organizer'         => array(
+					'type'        => 'string',
 					'description' => __( 'The organizer name', 'the-events-calendar' ),
 				),
-				'description' => array(
-					'type' => 'string',
+				'description'       => array(
+					'type'        => 'string',
 					'description' => __( 'The organizer long description', 'the-events-calendar' ),
 				),
-				'excerpt' => array(
-					'type' => 'string',
+				'excerpt'           => array(
+					'type'        => 'string',
 					'description' => __( 'The organizer short description', 'the-events-calendar' ),
 				),
-				'slug' => array(
-					'type' => 'string',
+				'slug'              => array(
+					'type'        => 'string',
 					'description' => __( 'The organizer slug', 'the-events-calendar' ),
 				),
-				'image' => array(
-					'type' => 'string',
-					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),
-					'$ref' => '#/definitions/Image',
+				'image'             => array(
+					// 'type' => 'object',
+					// 'description' => __( 'The event featured image details if set', 'the-events-calendar' ),
+					'$ref' => '#/components/schema/Image',
 				),
-				'phone' => array(
-					'type' => 'string',
+				'phone'             => array(
+					'type'        => 'string',
 					'description' => __( 'The organizer phone number', 'the-events-calendar' ),
 				),
-				'website' => array(
-					'type' => 'string',
+				'website'           => array(
+					'type'        => 'string',
+					'format'      => 'uri',
 					'description' => __( 'The organizer website', 'the-events-calendar' ),
 				),
-				'email' => array(
-					'type' => 'string',
+				'email'             => array(
+					'type'        => 'string',
+					'format'      => 'email',
 					'description' => __( 'The organizer email address', 'the-events-calendar' ),
 				),
 			),

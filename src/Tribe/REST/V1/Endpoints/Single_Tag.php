@@ -64,39 +64,78 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Returns the data of the event tag with the specified term ID', 'the-event-calendar' ),
-						'schema'      => array(
-							'$ref' => '#/definitions/Term',
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'$ref' => '#/components/schemas/Term',
+								),
+							),
 						),
 					),
 					'400' => array(
 						'description' => __( 'The event tag term ID is missing.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'404' => array(
 						'description' => __( 'An event tag with the specified term ID does not exist.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 				),
 			),
 			'post' => array(
-				'consumes' => array( 'application/x-www-form-urlencoded' ),
 				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Returns the data of the updated event tag', 'the-event-calendar' ),
-						'schema'      => array(
-							'$ref' => '#/definitions/Term',
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'$ref' => '#/components/schemas/Term',
+								),
+							),
 						),
 					),
 					'201' => array(
 						'description' => __( 'Returns the data of the created event tag', 'the-event-calendar' ),
-						'schema'      => array(
-							'$ref' => '#/definitions/Term',
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'$ref' => '#/components/schemas/Term',
+								),
+							),
 						),
 					),
 					'400' => array(
 						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'403' => array(
 						'description' => __( 'The user is not authorized to create event tags', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 				),
 			),
@@ -105,21 +144,53 @@ class Tribe__Events__REST__V1__Endpoints__Single_Tag
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Deletes an event tag and returns its data', 'the-event-calendar' ),
-						'schema'      => array(
-							'$ref' => '#/definitions/Term',
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'$ref' => '#/components/schemas/Term',
+								),
+							),
 						),
 					),
 					'400' => array(
 						'description' => __( 'The event tag term ID is missing or does not exist.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'403' => array(
 						'description' => __( 'The current user cannot delete the event tag with the specified term ID.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'410' => array(
 						'description' => __( 'The event tag with the specified term ID has been deleted already.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'500' => array(
 						'description' => __( 'The event tag with the specified term ID could not be deleted.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 				),
 			),

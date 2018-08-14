@@ -356,17 +356,52 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Returns all the upcoming events matching the search criteria', 'the-event-calendar' ),
-						'schema'      => array(
-							'title' => 'events',
-							'type'  => 'array',
-							'items' => array( '$ref' => '#/definitions/Event' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type'       => 'object',
+									'properties' => array(
+										'rest_url'    => array(
+											'type'        => 'string',
+											'format'      => 'uri',
+											'description' => __( 'This results page REST URL', 'the-events-calendar' ),
+										),
+										'total'       => array(
+											'type'       => 'integer',
+											'description' => __( 'The total number of results across all pages', 'the-events-calendar' ),
+										),
+										'total_pages' => array(
+											'type'       => 'integer',
+											'description' => __( 'The total number of result pages matching the search criteria', 'the-events-calendar' ),
+										),
+										'events'   => array(
+											'type'  => 'array',
+											'items' => array( '$ref' => '#/components/schemas/Event' ),
+										),
+									),
+								),
+							),
 						),
 					),
 					'400' => array(
 						'description' => __( 'One or more of the specified query variables has a bad format', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'404' => array(
 						'description' => __( 'The requested page was not found.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 				),
 			),
@@ -420,33 +455,51 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_event_category' ),
 				'description' => __( 'Events should be assigned one of the specified categories slugs or IDs', 'the-events-calendar' ),
-				'swagger_type' => 'array',
-				'items' => array( 'type' => 'integer' ),
-				'collectionFormat' => 'csv',
+				'swagger_type' => array(
+					'oneOf' => array(
+						array( 'type' => 'array', 'items' => array( 'type' => 'integer' ) ),
+						array( 'type' => 'array', 'items' => array( 'type' => 'string' ) ),
+						array( 'type' => 'string' ),
+						array( 'type' => 'integer' ),
+					),
+				),
 			),
 			'tags'       => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_post_tag' ),
 				'description' => __( 'Events should be assigned one of the specified tags slugs or IDs', 'the-events-calendar' ),
-				'swagger_type' => 'array',
-				'items' => array( 'type' => 'integer' ),
-				'collectionFormat' => 'csv',
+				'swagger_type' => array(
+					'oneOf' => array(
+						array( 'type' => 'array', 'items' => array( 'type' => 'integer' ) ),
+						array( 'type' => 'array', 'items' => array( 'type' => 'string' ) ),
+						array( 'type' => 'string' ),
+						array( 'type' => 'integer' ),
+					),
+				),
 			),
 			'venue'      => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_venue_id_list' ),
 				'description' => __( 'Events should be assigned one of the specified venue IDs', 'the-events-calendar' ),
-				'swagger_type' => 'array',
-				'items' => array( 'type' => 'integer' ),
-				'collectionFormat' => 'csv',
+				'swagger_type' => array(
+					'oneOf' => array(
+						array( 'type' => 'array', 'items' => array( 'type' => 'integer' ) ),
+						array( 'type' => 'integer' ),
+						array( 'type' => 'string' ),
+					),
+				),
 			),
 			'organizer'  => array(
 				'required'          => false,
 				'validate_callback' => array( $this->validator, 'is_organizer_id_list' ),
 				'description' => __( 'Events should be assigned one of the specified organizer IDs', 'the-events-calendar' ),
-				'swagger_type' => 'array',
-				'items' => array( 'type' => 'integer' ),
-				'collectionFormat' => 'csv',
+				'swagger_type' => array(
+					'oneOf' => array(
+						array( 'type' => 'array', 'items' => array( 'type' => 'integer' ) ),
+						array( 'type' => 'integer' ),
+						array( 'type' => 'string' ),
+					),
+				),
 			),
 			'featured'   => array(
 				'required'    => false,

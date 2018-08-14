@@ -38,18 +38,22 @@ class Tribe__Events__REST__V1__Documentation__Venue_Definition_Provider
 				),
 				'date' => array(
 					'type' => 'string',
+					'format' => 'date',
 					'description' => __( 'The venue creation date in the site time zone', 'the-events-calendar' ),
 				),
 				'date_utc' => array(
 					'type' => 'string',
+					'format' => 'date',
 					'description' => __( 'The venue creation date in UTC time', 'the-events-calendar' ),
 				),
 				'modified' => array(
 					'type' => 'string',
+					'format' => 'date',
 					'description' => __( 'The venue last modification date in the site time zone', 'the-events-calendar' ),
 				),
 				'modified_utc' => array(
 					'type' => 'string',
+					'format' => 'date',
 					'description' => __( 'The venue last modification date in UTC time', 'the-events-calendar' ),
 				),
 				'status' => array(
@@ -58,6 +62,7 @@ class Tribe__Events__REST__V1__Documentation__Venue_Definition_Provider
 				),
 				'url' => array(
 					'type' => 'string',
+					'format' => 'uri',
 					'description' => __( 'The URL to the venue page', 'the-events-calendar' ),
 				),
 				'venue' => array(
@@ -77,9 +82,8 @@ class Tribe__Events__REST__V1__Documentation__Venue_Definition_Provider
 					'description' => __( 'The venue slug', 'the-events-calendar' ),
 				),
 				'image' => array(
-					'type' => 'string',
-					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),
-					'$ref' => '#/definitions/Image',
+					// 'description' => __( 'The event featured image details if set', 'the-events-calendar' ),
+					'$ref' => '#/components/schemas/Image',
 				),
 				'show_map' => array(
 					'type' => 'boolean',
@@ -119,6 +123,7 @@ class Tribe__Events__REST__V1__Documentation__Venue_Definition_Provider
 				),
 				'website' => array(
 					'type' => 'string',
+					'format' => 'uri',
 					'description' => __( 'The venue website URL', 'the-events-calendar' ),
 				),
 				'stateprovince' => array(

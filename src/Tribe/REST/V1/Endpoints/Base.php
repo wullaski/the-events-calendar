@@ -35,14 +35,16 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 			return $args;
 		}
 
-		$no_description = __( 'No description provided', 'the-events-calendar' );
+		$no_description = __( 'No description provided', 'event-tickets' );
 		$defaults = array_merge( array(
 			'in'          => 'body',
-			'type'        => 'string',
+			'schema'      => array(
+				'type'    => 'string',
+				'default' => '',
+			),
 			'description' => $no_description,
 			'required'    => false,
-			'default'     => '',
-			'items' => array(
+			'items'       => array(
 				'type' => 'integer',
 			),
 		), $defaults );
@@ -56,28 +58,43 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 				$type = isset( $info['type'] ) ? $info['type'] : false;
 			}
 
-			$type = $this->convert_type( $type );
+			$type = is_array( $type ) ? $type : $this->convert_type( $type );
 
-			$read = array(
+			$schema = null;
+
+			if ( is_array( $type ) ) {
+				$schema = $type;
+				unset( $info['swagger_type'] );
+			} else {
+				$schema = array(
+					'type'    => $type,
+					'default' => isset( $info['default'] ) ? $info['default'] : false,
+				);
+			}
+
+			$read  = array(
 				'name'             => $name,
+				'description'      => isset( $info['description'] ) ? $info['description'] : false,
 				'in'               => isset( $info['in'] ) ? $info['in'] : false,
 				'collectionFormat' => isset( $info['collectionFormat'] ) ? $info['collectionFormat'] : false,
-				'description'      => isset( $info['description'] ) ? $info['description'] : false,
-				'type'             => $type,
+				'schema'           => $schema,
 				'items'            => isset( $info['items'] ) ? $info['items'] : false,
 				'required'         => isset( $info['required'] ) ? $info['required'] : false,
-				'default'          => isset( $info['default'] ) ? $info['default'] : false,
 			);
 
 			if ( isset( $info['swagger_type'] ) ) {
-				$read['type'] = $info['swagger_type'];
+				$read['schema']['type'] = $info['swagger_type'];
 			}
 
-			if ( $read['type'] !== 'array' ) {
+			if ( isset( $read['schema']['type'] ) && $read['schema']['type'] !== 'array' ) {
 				unset( $defaults['items'] );
 			}
 
-			$swaggerized[] = array_merge( $defaults, array_filter( $read ) );
+			$merged = array_merge( $defaults, array_filter( $read ) );
+
+			unset( $merged['type'], $merged['default'] );
+
+			$swaggerized[] = $merged;
 		}
 
 		return $swaggerized;

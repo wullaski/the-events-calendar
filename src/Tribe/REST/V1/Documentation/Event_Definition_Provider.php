@@ -38,18 +38,22 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				),
 				'date' => array(
 					'type' => 'string',
+					'format' => 'date',
 					'description' => __( 'The event creation date in the site time zone', 'the-events-calendar' ),
 				),
 				'date_utc' => array(
 					'type' => 'string',
+					'format' => 'date',
 					'description' => __( 'The event creation date in UTC time', 'the-events-calendar' ),
 				),
 				'modified' => array(
 					'type' => 'string',
+					'format' => 'date',
 					'description' => __( 'The event last modification date in the site time zone', 'the-events-calendar' ),
 				),
 				'modified_utc' => array(
 					'type' => 'string',
+					'format' => 'date',
 					'description' => __( 'The event last modification date in UTC time', 'the-events-calendar' ),
 				),
 				'status' => array(
@@ -58,10 +62,12 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				),
 				'url' => array(
 					'type' => 'string',
+					'format' => 'uri',
 					'description' => __( 'The URL to the event page', 'the-events-calendar' ),
 				),
 				'rest_url' => array(
 					'type' => 'string',
+					'format' => 'uri',
 					'description' => __( 'The TEC REST API link to fetch this event', 'the-events-calendar' ),
 				),
 				'title' => array(
@@ -81,9 +87,9 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 					'description' => __( 'The event slug', 'the-events-calendar' ),
 				),
 				'image' => array(
-					'type' => 'object',
-					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),
-					'$ref' => '#/definitions/Image',
+					// 'type' => 'object',
+					// 'description' => __( 'The event featured image details if set', 'the-events-calendar' ),
+					'$ref' => '#/components/schemas/Image',
 				),
 				'all_day' => array(
 					'type' => 'boolean',
@@ -91,39 +97,43 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				),
 				'start_date' => array(
 					'type' => 'string',
+					'format' => 'date',
 					'description' => __( 'The event start date in the event or site time zone', 'the-events-calendar' ),
 				),
 				'start_date_details' => array(
-					'type' => 'array',
-					'description' => __( 'An array of each component of the event start date', 'the-events-calendar' ),
-					'$ref' => '#/definitions/DateDetails',
+					// 'type' => 'object',
+					//j 'description' => __( 'An array of each component of the event start date', 'the-events-calendar' ),
+					'$ref' => '#/components/schemas/DateDetails',
 				),
 				'end_date' => array(
 					'type' => 'string',
+					'format' => 'date',
 					'description' => __( 'The event end date in the event or site time zone', 'the-events-calendar' ),
 				),
 				'end_date_details' => array(
-					'type' => 'array',
-					'description' => __( 'An array of each component of the event end date', 'the-events-calendar' ),
-					'$ref' => '#/definitions/DateDetails',
+					// 'type' => 'object',
+					// 'description' => __( 'An array of each component of the event end date', 'the-events-calendar' ),
+					'$ref' => '#/components/schemas/DateDetails',
 				),
 				'utc_start_date' => array(
 					'type' => 'string',
+					'format' => 'date',
 					'description' => __( 'The event start date in UTC time', 'the-events-calendar' ),
 				),
 				'utc_start_date_details' => array(
-					'type' => 'array',
-					'description' => __( 'An array of each component of the event start date in UTC time', 'the-events-calendar' ),
-					'$ref' => '#/definitions/DateDetails'
+					// 'type' => 'object',
+					// 'description' => __( 'An array of each component of the event start date in UTC time', 'the-events-calendar' ),
+					'$ref' => '#/components/schemas/DateDetails'
 				),
 				'utc_end_date' => array(
 					'type' => 'string',
+					'format' => 'date',
 					'description' => __( 'The event end date in UTC time', 'the-events-calendar' ),
 				),
 				'utc_end_date_details' => array(
-					'type' => 'array',
-					'description' => __( 'An array of each component of the event end date in UTC time', 'the-events-calendar' ),
-					'$ref' => '#/definitions/DateDetails'
+					// 'type' => 'object',
+					// 'description' => __( 'An array of each component of the event end date in UTC time', 'the-events-calendar' ),
+					'$ref' => '#/components/schemas/DateDetails'
 				),
 				'timezone' => array(
 					'type' => 'string',
@@ -138,12 +148,13 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 					'description' => __( 'The event cost including the currency symbol', 'the-events-calendar' ),
 				),
 				'cost_details' => array(
-					'type' => 'array',
-					'description' => __( 'The event cost details', 'the-events-calendar' ),
-					'$ref' => '#/definitions/CostDetails',
+					// 'type' => 'object',
+					// 'description' => __( 'The event cost details', 'the-events-calendar' ),
+					'$ref' => '#/components/schemas/CostDetails',
 				),
 				'website' => array(
 					'type' => 'string',
+					'format' => 'uri',
 					'description' => __( 'The event website URL', 'the-events-calendar' ),
 				),
 				'show_map' => array(
@@ -167,24 +178,24 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 					'description' => __( 'Whether the event is featured in the calendar or not', 'the-events-calendar' )
 				),
 				'categories' => array(
+					// 'description' => __( 'The event categories', 'the-events-calendar' ),
 					'type' => 'array',
-					'description' => __( 'The event categories', 'the-events-calendar' ),
-					'$ref' => '#/definitions/Term',
+					'items' => array( 'schema' => '#/components/schemas/Term' ),
 				),
 				'tags' => array(
+					// 'description' => __( 'The event tags', 'the-events-calendar' ),
 					'type' => 'array',
-					'description' => __( 'The event tags', 'the-events-calendar' ),
-					'$ref' => '#/definitions/Term',
+					'items' => array( 'schema' => '#/components/schemas/Term' ),
 				),
 				'venue' => array(
-					'type' => 'object',
-					'description' => __( 'The event venue', 'the-events-calendar' ),
-					'$ref' => '#/definitions/Venue',
+					// 'type' => 'object',
+					// 'description' => __( 'The event venue', 'the-events-calendar' ),
+					'$ref' => '#/components/schemas/Venue',
 				),
 				'organizer' => array(
 					'type' => 'array',
 					'description' => __( 'The event organizers', 'the-events-calendar' ),
-					'$ref' => '#/definitions/Organizer',
+					'items' => array( 'schema' => '#/components/schemas/Organizer' ),
 				),
 			),
 		);

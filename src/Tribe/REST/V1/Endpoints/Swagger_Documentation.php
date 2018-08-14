@@ -8,7 +8,7 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 	/**
 	 * @var string
 	 */
-	protected $swagger_version = '2.0';
+	protected $open_api_version = '3.0.0';
 
 	/**
 	 * @var string
@@ -61,15 +61,15 @@ class Tribe__Events__REST__V1__Endpoints__Swagger_Documentation
 	 */
 	public function get_documentation() {
 		$documentation = array(
-			'swagger'     => $this->swagger_version,
-			'info'        => $this->get_api_info(),
-			'host'        => parse_url( home_url(), PHP_URL_HOST ),
-			'basePath'    => str_replace( home_url(), '', tribe_events_rest_url() ),
-			'schemes'     => is_ssl() ? array( 'https', 'http' ) : array( 'http' ),
-			'consumes'    => array( 'application/json' ),
-			'produces'    => array( 'application/json' ),
-			'paths'       => $this->get_paths(),
-			'definitions' => $this->get_definitions(),
+			'openapi'    => $this->open_api_version,
+			'info'       => $this->get_api_info(),
+			'servers'    => array(
+				array(
+					'url' => tribe_events_rest_url(),
+				),
+			),
+			'paths'      => $this->get_paths(),
+			'components' => array( 'schemas' => $this->get_definitions() ),
 		);
 
 		/**

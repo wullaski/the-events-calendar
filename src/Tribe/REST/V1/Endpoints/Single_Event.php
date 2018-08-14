@@ -116,42 +116,99 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Returns the data of the event with the specified post ID', 'the-event-calendar' ),
-						'schema'      => array(
-							'$ref' => '#/definitions/Event',
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'$ref' => '#/components/schemas/Event',
+								),
+							),
 						),
 					),
 					'400' => array(
 						'description' => __( 'The event post ID is missing.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'403' => array(
 						'description' => __( 'The event with the specified ID is not accessible.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'404' => array(
 						'description' => __( 'An event with the specified ID does not exist.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 				),
 			),
 			'post' => array(
-				'consumes' => array( 'application/x-www-form-urlencoded' ),
-				'parameters' => $this->swaggerize_args( $post_args, $POST_defaults ),
+				'requestBody' => array(
+					'required'=> true,
+					'content' => array(
+						'application/x-www-form-urlencoded'=>array(
+							'schema' => array(
+								'type' => 'object',
+								'properties' => $this->swaggerize_args( $post_args, $POST_defaults
+								),
+							),
+						),
+					),
+				),
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Returns the data of the updated event', 'the-event-calendar' ),
-						'schema'      => array(
-							'$ref' => '#/definitions/Event',
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'$ref' => '#/components/schemas/Event',
+								),
+							),
 						),
 					),
 					'201' => array(
 						'description' => __( 'Returns the data of the created event', 'the-event-calendar' ),
-						'schema'      => array(
-							'$ref' => '#/definitions/Event',
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'$ref' => '#/components/schemas/Event',
+								),
+							),
 						),
 					),
 					'400' => array(
 						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'403' => array(
 						'description' => __( 'The user is not authorized to create events', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 				),
 			),
@@ -160,21 +217,53 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'responses'  => array(
 					'200' => array(
 						'description' => __( 'Deletes an event and returns its data', 'the-event-calendar' ),
-						'schema'      => array(
-							'$ref' => '#/definitions/Event',
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'$ref' => '#/components/schemas/Event',
+								),
+							),
 						),
 					),
 					'400' => array(
 						'description' => __( 'The event post ID is missing or does not exist.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'403' => array(
 						'description' => __( 'The current user cannot delete the event with the specified ID.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'410' => array(
 						'description' => __( 'The event with the specified ID has been deleted already.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 					'500' => array(
 						'description' => __( 'The event with the specified ID could not be deleted.', 'the-events-calendar' ),
+						'content'     => array(
+							'application/json' => array(
+								'schema' => array(
+									'type' => 'object',
+								),
+							),
+						),
 					),
 				),
 			),
