@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-07-20 07:15:05+0000\n"
+"PO-Revision-Date: 2018-08-15 12:01:25+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1113,7 +1113,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:105
 msgid "The user is not authorized to create event categories"
-msgstr ""
+msgstr "El usuario no tiene autorización para crear categorías de eventos"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:102
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:151
@@ -1121,15 +1121,15 @@ msgstr ""
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:96
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:141
 msgid "A required parameter is missing or an input parameter is in the wrong format"
-msgstr ""
+msgstr "Falta un parámetro requerido o un parámetro introducido está en un formato incorrecto"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:96
 msgid "Returns the data of the created event category"
-msgstr ""
+msgstr "Devuelve los datos de la categoría del evento creado."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:90
 msgid "Returns the data of the updated event category"
-msgstr ""
+msgstr "Devuelve los datos de la categoría de evento actualizada"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:81
 msgid "An event category with the specified term ID does not exist."
