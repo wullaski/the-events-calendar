@@ -2,14 +2,14 @@
 /**
  * Registers and Enqueues the assets
  *
- * @since  TBD
+ * @since  4.6.21
  */
 class Tribe__Events__Assets {
 
 	/**
 	 * Hooks any required filters and action
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return void
 	 */
@@ -21,7 +21,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Registers and Enqueues the assets
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return void
 	 */
@@ -216,6 +216,7 @@ class Tribe__Events__Assets {
 					'operator' => 'AND',
 					array( $this, 'is_mobile_breakpoint' ),
 					array( $this, 'should_enqueue_frontend' ),
+					array( $this, 'is_style_option_tribe' ),
 				),
 			)
 		);
@@ -229,6 +230,7 @@ class Tribe__Events__Assets {
 			array(
 				'media'        => 'only screen and (max-width: ' . tribe_get_mobile_breakpoint() . 'px)',
 				'groups'       => array( 'events-styles' ),
+				'priority'     => 7,
 				'conditionals' => array(
 					'operator' => 'AND',
 					array( $this, 'is_mobile_breakpoint' ),
@@ -242,7 +244,7 @@ class Tribe__Events__Assets {
 			$plugin,
 			'tribe-events-full-calendar-style',
 			'tribe-events-full.css',
-			array(),
+			array( 'tribe-accessibility-css' ),
 			'wp_enqueue_scripts',
 			array(
 				'groups'       => array( 'events-styles' ),
@@ -329,7 +331,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Add admin scripts and styles
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 */
 	public function load_admin() {
 		$admin_helpers = Tribe__Admin__Helpers::instance();
@@ -358,7 +360,7 @@ class Tribe__Events__Assets {
 	 * Needs to execute late enough during admin_enqueue_scripts that the items we are removing
 	 * have already been registered and enqueued.
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @see https://github.com/easydigitaldownloads/easy-digital-downloads/issues/3033
 	 */
@@ -374,7 +376,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Checks if we should enqueue on frontend and backend on our pages
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return bool
 	 */
@@ -389,22 +391,25 @@ class Tribe__Events__Assets {
 	/**
 	 * Checks if we should enqueue frontend assets
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return bool
 	 */
 	public function should_enqueue_frontend() {
+		global $post;
+
 		$should_enqueue = (
 			tribe_is_event_query()
 			|| tribe_is_event_organizer()
 			|| tribe_is_event_venue()
 			|| is_active_widget( false, false, 'tribe-events-list-widget' )
+			|| ( $post instanceof WP_Post && has_shortcode( $post->post_content, 'tribe_events' ) )
 		);
 
 		/**
 		 * Allow filtering of where the base Frontend Assets will be loaded
 		 *
-		 * @since  TBD
+		 * @since  4.6.21
 		 *
 		 * @param bool $should_enqueue
 		 */
@@ -414,17 +419,17 @@ class Tribe__Events__Assets {
 	/**
 	 * Checks if we should enqueue full styles assets
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return bool
 	 */
 	public function should_enqueue_full_styles() {
-		$should_enqueue = $this->is_style_option_tribe();
+		$should_enqueue = $this->is_style_option_full() || $this->is_style_option_tribe();
 
 		/**
 		 * Allow filtering of where the base Full Style Assets will be loaded
 		 *
-		 * @since  TBD
+		 * @since  4.6.21
 		 *
 		 * @param bool $should_enqueue
 		 */
@@ -434,7 +439,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Checks if we are on the correct admin pages to enqueue admin
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return bool
 	 */
@@ -449,7 +454,7 @@ class Tribe__Events__Assets {
 		/**
 		 * Allow filtering of where the base Admin Assets will be loaded
 		 *
-		 * @since  TBD
+		 * @since  4.6.21
 		 *
 		 * @param bool $should_enqueue
 		 */
@@ -459,7 +464,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Checks if we have a mobile Breakpoint
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return bool
 	 */
@@ -476,7 +481,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Checks if we are using Tribe setting for Style
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return bool
 	 */
@@ -486,9 +491,21 @@ class Tribe__Events__Assets {
 	}
 
 	/**
-	 * Checks if we are on the correct admin settings page
+	 * Checks if we are using "Full Styles" setting for Style
 	 *
 	 * @since  TBD
+	 *
+	 * @return bool
+	 */
+	public function is_style_option_full() {
+		$style_option = tribe_get_option( 'stylesheetOption', 'tribe' );
+		return 'full' === $style_option;
+	}
+
+	/**
+	 * Checks if we are on the correct admin settings page
+	 *
+	 * @since  4.6.21
 	 *
 	 * @return bool
 	 */
@@ -499,7 +516,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Playing ping-pong with WooCommerce. They keep changing their script.
 	 *
-	 * @since TBD
+	 * @since 4.6.21
 	 *
 	 * @see https://github.com/woothemes/woocommerce/issues/3623
 	 *
@@ -525,7 +542,7 @@ class Tribe__Events__Assets {
 	 * Due to how we define which style we use based on an Option on the Administration
 	 * we need to determine this file.
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return string
 	 */
@@ -549,7 +566,7 @@ class Tribe__Events__Assets {
 		/**
 		 * Allows filtering of the Stylesheet file for Events Calendar Pro
 		 *
-		 * @deprecated  TBD
+		 * @deprecated  4.6.21
 		 *
 		 * @param string $file Which file we are loading
 		 * @param string $name Option from the DB of style we are using
@@ -561,7 +578,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Gets the Localize variable for TEC admin JS
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return array
 	 */
@@ -578,7 +595,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Gets the Localize variable for Calendar Script JS
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return array
 	 */
@@ -588,6 +605,15 @@ class Tribe__Events__Assets {
 			'events_post_type'   => Tribe__Events__Main::POSTTYPE,
 			'events_base'        => tribe_get_events_link(),
 		);
+
+		/**
+		 * Allow filtering if we should display JS debug messages
+		 *
+		 * @since  TBD
+		 *
+		 * @param bool
+		 */
+		$js_config_array['debug'] = apply_filters( 'tribe_events_js_debug', tribe_get_option( 'debugEvents' ) );
 
 		/**
 		 * Allows for easier filtering of the "Export Events" iCal link URL.
@@ -601,24 +627,13 @@ class Tribe__Events__Assets {
 			$js_config_array['force_filtered_ical_link'] = true;
 		}
 
-		/**
-		 * Filter Debug Statements in Javascript
-		 *
-		 * @since TDB
-		 *
-		 * @param boolean $force Defaults to false; when true, debug is disabled in scripts
-		 */
-		if ( apply_filters( 'tribe_events_disable_js_debug', false ) ) {
-			$js_config_array['tribe_disable_debug'] = true;
-		}
-
 		return $js_config_array;
 	}
 
 	/**
 	 * Gets the Localize variable for Dynamic JS
 	 *
-	 * @since  TBD
+	 * @since  4.6.21
 	 *
 	 * @return array
 	 */
