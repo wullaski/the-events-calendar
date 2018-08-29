@@ -460,6 +460,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Gutenberg Extension
 			tribe_singleton( 'tec.gutenberg', 'Tribe__Events__Gutenberg', array( 'hook' ) );
 
+			// Additional Fields
+			tribe_singleton( 'tec.additional.fields', 'Tribe__Events__Additional_Fields', array( 'hook' ) );
+
 			// Admin Notices
 			tribe_singleton( 'tec.admin.notice.timezones', 'Tribe__Events__Admin__Notice__Timezones', array( 'hook' ) );
 			tribe_singleton( 'tec.admin.notice.marketing', 'Tribe__Events__Admin__Notice__Marketing', array( 'hook' ) );
@@ -727,6 +730,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.iCal' );
 			tribe( 'tec.rest-v1.main' );
 			tribe( 'tec.gutenberg' );
+			tribe( 'tec.additional.fields' );
 			tribe( 'tec.admin.notice.timezones' );
 			tribe( 'tec.admin.notice.marketing' );
 			tribe( 'tec.privacy' );
@@ -782,10 +786,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			Tribe__Credits::init();
 			Tribe__Events__Timezones::init();
 			$this->registerPostType();
-
-			//todo change to service provider
-			Tribe__Events__Custom_Meta::init();
-			$this->custom_meta_tools = new Tribe__Events__Pro__Admin__Custom_Meta_Tools;
+			tribe( 'tec.additional.fields' )->display_custom_fields_metabox();
 
 			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();

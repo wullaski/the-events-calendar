@@ -1785,4 +1785,19 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// No condition was true so is not on home of events.
 		return false;
 	}
+
+	/**
+	 * Get an array of additional fields
+	 *
+	 * @since TBD
+	 *
+	 * @param int $postId (optional)
+	 *
+	 * @return array $data of additional fields
+	 *
+	 */
+	function tribe_get_additional_fields( $postId = null ) {
+		tribe( 'tec.additional.fields' )->tribe_get_additional_fields( $postId );
+	}
+
 }
