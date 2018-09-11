@@ -134,7 +134,7 @@ class Tribe__Events__Aggregator__Page {
 						'underscore',
 						'tribe-bumpdown',
 						'tribe-dependency',
-						'tribe-select2',
+						'tribe-selectWoo',
 						'tribe-events-admin',
 						'tribe-ea-facebook-login',
 					),

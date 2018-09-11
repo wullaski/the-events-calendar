@@ -119,7 +119,7 @@ tribe_aggregator.fields = {
 
 				var importType = $this.val();
 
-				$frequency.select2( 'val', ( 'schedule' === importType ? 'daily' : '' ) ).change();
+				$frequency.selectWoo( 'val', ( 'schedule' === importType ? 'daily' : '' ) ).change();
 
 				// set a data attribute on the form indicating the schedule type
 				obj.$.form.attr( 'data-type', importType );
@@ -136,7 +136,7 @@ tribe_aggregator.fields = {
 				$( '.tribe-bumpdown:visible' ).hide();
 
 				// reset all the select2 fields other than the origin
-				// $( '.tribe-ea-tab-new .tribe-ea-dropdown:not([id$="tribe-ea-field-origin"])' ).select2( 'val', '' ).change();
+				// $( '.tribe-ea-tab-new .tribe-ea-dropdown:not([id$="tribe-ea-field-origin"])' ).selectWoo( 'val', '' ).change();
 
 				// reset all the inputs to default values
 				// $( '.tribe-ea-tab-new .tribe-ea-form input' ).val( function() { return this.defaultValue; } ).change();
@@ -292,7 +292,7 @@ tribe_aggregator.fields = {
 	 */
 	obj.reset_form = function() {
 		obj.$.fields.val( '' ).trigger( 'change' );
-		$( '.tribe-ea-dropdown' ).select2( 'data', null );
+		$( '.tribe-ea-dropdown' ).selectWoo( 'data', null );
 		$( '[id$="import_frequency"]' ).val( 'daily' ).trigger( 'change' );
 		obj.$.form.removeClass( 'show-data' );
 	};
@@ -470,7 +470,7 @@ tribe_aggregator.fields = {
 
 				$setting_field
 					.val( ea.default_settings[ origin ][ settings_key ] )
-					.select2( 'val', ea.default_settings[ origin ][ settings_key ] )
+					.selectWoo( 'val', ea.default_settings[ origin ][ settings_key ] )
 					.trigger( 'change' );
 			}
 		}
