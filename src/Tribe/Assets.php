@@ -113,7 +113,7 @@ class Tribe__Events__Assets {
 						'tribe-jquery-timepicker',
 						'tribe-timepicker',
 						'tribe-attrchange',
-						'tribe-selectWoo',
+						'tribe-selectwoo',
 						'ecp-plugins',
 					),
 				),
@@ -122,7 +122,7 @@ class Tribe__Events__Assets {
 					'events-admin.css',
 					array(
 						'tribe-jquery-timepicker-css',
-						'tribe-selectWoo-css',
+						'tribe-selectwoo-css',
 						'dashicons',
 						'thickbox',
 					),
@@ -152,7 +152,7 @@ class Tribe__Events__Assets {
 			$plugin,
 			'tribe-events-settings',
 			'tribe-settings.js',
-			array( 'dashicons', 'tribe-selectWoo', 'thickbox' ),
+			array( 'dashicons', 'tribe-selectwoo', 'thickbox' ),
 			'admin_enqueue_scripts',
 			array(
 				'conditionals' => array( $admin_helpers, 'is_screen' ),

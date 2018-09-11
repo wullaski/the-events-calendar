@@ -23,6 +23,8 @@
   "common/vendor/a5hleyrich/wp-background-processing/*.php",
   "common/vendor/a5hleyrich/wp-background-processing/license.*",
   "common/vendor/momentjs/*.js",
+  "common/vendor/tribe-selectwoo/dist/js/*.js",
+  "common/vendor/tribe-selectwoo/dist/css/*.css",
   "common/vendor/tribe-select2/*.css",
   "common/vendor/tribe-select2/*.js",
   "common/vendor/tribe-select2/*.gif",
