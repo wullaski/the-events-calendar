@@ -968,7 +968,7 @@
                     if (s2.length == 0) {
                         $(this).unbind(scroll);
                     }
-                    s2.select2("close");
+                    s2.selectWoo("close");
                 });
             });
 
@@ -977,7 +977,7 @@
                 if (s2.length == 0) {
                     $(window).unbind(resize);
                 }
-                s2.select2("close");
+                s2.selectWoo("close");
             });
 
             this.clearDropdownAlignmentPreference();

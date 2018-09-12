@@ -538,8 +538,8 @@ Date.prototype.format = function( mask, utc ) {
 		 */
 		disable_inputs        : function( parent, type ) {
 			$( parent ).find( type ).prop( 'disabled', true );
-			if ( $( parent ).find( '.selectWoo-container' ).length ) {
-				$( parent ).find( '.selectWoo-container' ).each( function() {
+			if ( $( parent ).find( '.select2-container' ).length ) {
+				$( parent ).find( '.select2-container' ).each( function() {
 					var s2_id = $( this ).attr( 'id' );
 					var $this = $( '#' + s2_id );
 					$this.selectWoo( "disable" );
@@ -571,8 +571,8 @@ Date.prototype.format = function( mask, utc ) {
 		 */
 		enable_inputs         : function( parent, type ) {
 			$( parent ).find( type ).prop( 'disabled', false );
-			if ( $( parent ).find( '.selectWoo-container' ).length ) {
-				$( parent ).find( '.selectWoo-container' ).each( function() {
+			if ( $( parent ).find( '.select2-container' ).length ) {
+				$( parent ).find( '.select2-container' ).each( function() {
 					var s2_id = $( this ).attr( 'id' );
 					var $this = $( '#' + s2_id );
 					$this.selectWoo( "enable" );
